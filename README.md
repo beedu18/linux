@@ -46,3 +46,12 @@ history | grep -i <search_term> # search your previous commands (spits out every
 # CTRL + R again to get previous command with the query
 # Repeat and cure amnesia
 ```
+
+### Version Control
+```sh
+# Compact commit log
+git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+
+# Changes made in a commit
+git show --color --pretty=format:%b <COMMIT_HASH>
+```
