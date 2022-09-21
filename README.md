@@ -55,3 +55,33 @@ git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(re
 # Changes made in a commit
 git show --color --pretty=format:%b <COMMIT_HASH>
 ```
+
+### User Management
+```sh
+# Add custom location for user's home directory
+mkdir -p <custom_directory_location>
+
+# Add user
+sudo useradd -d <custom_directory_location> -s /bin/bash -U <username>
+
+# Change ownership and permissions
+sudo chown -R <username>:<username> <custom_directory_location>
+sudo chmod -R 750 <custom_directory_location>
+
+# Change Password
+sudo passwd <username>
+
+# Verify
+grep <username> /etc/passwd
+grep <username> /etc/group # see if group added
+
+# SSH access
+sudo vim /etc/ssh/sshd_config
+
+# Add/Uncomment the following lines
+PermitRootLogin no
+AllowUsers user1 user2 <username>
+
+# Restart the service
+sudo service sshd restart # For debian based systems
+```
