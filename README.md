@@ -71,6 +71,13 @@ sudo chmod -R 750 <custom_directory_location>
 # Change Password
 sudo passwd <username>
 
+# Add user to a group
+sudo usermod -aG <group1>,<group2> <username>
+sudo gpasswd -a <username> <groupname>
+
+# Remove user from a group
+sudo gpasswd -d <username> <groupname>
+
 # Verify
 grep <username> /etc/passwd
 grep <username> /etc/group # see if group added
