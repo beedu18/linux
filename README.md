@@ -92,3 +92,22 @@ AllowUsers user1 user2 <username>
 # Restart the service
 sudo service sshd restart # For debian based systems
 ```
+
+### `.bashrc` File
+```sh
+# Prettify Git Commits
+alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+
+# View Commit Changes
+alias gc='git show --color --pretty=format:%b'
+
+# Docker
+alias d='docker'
+alias dc='docker-compose'
+alias dcu='docker-compose up -d --force-recreate'
+alias dcl='docker-compose logs -f'
+
+# Kubectl
+alias k='kubectl'
+alias kgn='kubectl get nodes -o wide'
+```
