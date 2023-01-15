@@ -49,6 +49,17 @@ history | grep -i <search_term> # search your previous commands (spits out every
 
 ### Version Control
 ```sh
+# Initialize Git
+git init
+
+# Change user config for current project
+git config user.name "FIRST_NAME LAST_NAME"
+git config user.email "EMAIL@EXAMPLE.COM"
+
+# Change user config for all projects
+git config --global user.name "FIRST_NAME LAST_NAME"
+git config --global user.email "EMAIL@EXAMPLE.COM"
+
 # Compact commit log
 git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 
