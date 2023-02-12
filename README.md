@@ -65,6 +65,10 @@ git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(re
 
 # Changes made in a commit
 git show --color --pretty=format:%b <COMMIT_HASH>
+
+# Cloning a specific branch/tag
+git clone --depth 1 --branch <name> <repo_url> # will only download HEAD
+git clone <repo_url> --branch <name> --single-branch # will download entire branch history leading to HEAD
 ```
 
 ### User Management
