@@ -47,6 +47,24 @@ history | grep -i <search_term> # search your previous commands (spits out every
 # Repeat and cure amnesia
 ```
 
+### SSH Keys
+```sh
+# Generate a new SSH Key
+ssh-keygen -t rsa -f ~/.ssh/<KEY_FILENAME> -C <USERNAME> -b 4096 # RSA w/ 4096 bytes
+ssh-keygen -t ed25519 -f ~/.ssh/<KEY_FILENAME> -C <USERNAME>
+ssh-keygen -t ed25519 -C <USERNAME> # you will be prompted for the file path
+
+# Check the public key
+# This is the one you'll need to add to the remote for logging in
+cat ~/.ssh/<KEY_FILENAME>.pub
+
+# Copy the content of this file and add(or append) it to the authorized_keys file in your remote server
+# The file path in most linux distributions is ~/.ssh/authorized_keys
+# Once done, edit the '/etc/ssh/sshd_config' file and add 'PubkeyAuthentication yes' if already present
+# Then restart the service using:
+sudo service sshd restart # For debian based systems
+```
+
 ### Version Control
 ```sh
 # Initialize Git
@@ -60,6 +78,10 @@ git config user.email "EMAIL@EXAMPLE.COM"
 git config --global user.name "FIRST_NAME LAST_NAME"
 git config --global user.email "EMAIL@EXAMPLE.COM"
 
+# Check values
+git config -l
+git config --global -l
+
 # Compact commit log
 git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 
@@ -69,6 +91,23 @@ git show --color --pretty=format:%b <COMMIT_HASH>
 # Cloning a specific branch/tag
 git clone --depth 1 --branch <name> <repo_url> # will only download HEAD
 git clone <repo_url> --branch <name> --single-branch # will download entire branch history leading to HEAD
+
+# Adding a remote repository
+git remote add <IDENTIFIER> <REMOTE_URL>
+
+# The following require an ssh key generated in you dev machine to work. 
+# The key should also be allowed in your github account 
+git remote add github git@github.com:username/repository.git 
+
+# List remote repositories
+git remote -v
+
+# Pushing files to the remote repository
+# You will be prompted for credentials if an ssh key is not already configured in the dev machine and remote server
+git push <REMOTE_REPO_IDENTIFIER> <BRANCH>
+
+# Renaming a remote repository
+git remote rename <OLD_IDENTIFIER> <NEW_IDENTIFIER>
 ```
 
 ### User Management
@@ -81,7 +120,7 @@ sudo useradd -d <custom_directory_location> -s /bin/bash -U <username>
 
 # Change ownership and permissions
 sudo chown -R <username>:<username> <custom_directory_location>
-sudo chmod -R 750 <custom_directory_location>
+sudo chmod -R 750 <custom_directory_location> # Full access to owner, RO for group
 
 # Change Password
 sudo passwd <username>
@@ -102,6 +141,8 @@ sudo vim /etc/ssh/sshd_config
 
 # Add/Uncomment the following lines
 PermitRootLogin no
+# PermitRootLogin prohibit-password
+# PermitRootLogin without-password
 AllowUsers user1 user2 <username>
 
 # Restart the service
